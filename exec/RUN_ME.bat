@@ -36,35 +36,28 @@ if %errorlevel% equ 0 (
 
 echo.
 echo Checking project structure...
-REM Since we're in exec/, go up one level to check for src
-if not exist "..\src" (
+echo Current directory: %CD%
+echo.
+
+REM Check if src directory exists AND contains Main.java
+if not exist "src\" (
     echo ✗ Error: 'src' directory not found!
-    echo.
-    echo Current directory: %CD%
-    echo Expected structure:
-    echo   ProjectFolder/
-    echo   ├── exec/
-    echo   │   └── RUN_ME.bat  (this file)
-    echo   └── src/  (missing!)
-    echo.
-    dir ..
-    echo.
-    pause
-    exit /b 1
+    goto :showdir
 )
 
-echo ✓ Found 'src' directory with source code
+if not exist "src\Main.java" (
+    echo ✗ Error: 'src' directory exists but Main.java not found!
+    goto :showdir
+)
+
+echo ✓ Found 'src' directory with Main.java
 echo.
 
 echo Starting Gas Pump System...
 timeout /t 1 /nobreak >nul
 echo.
 
-REM Get the parent directory (project root)
-set "PROJECT_ROOT=%~dp0.."
-cd /d "%PROJECT_ROOT%"
-
-REM Option 1: Run from JAR if it exists in exec folder
+REM Option 1: Run from JAR if it exists
 if exist "exec\GasPumpSystem.jar" (
     echo Running from JAR file...
     echo ====================================
@@ -76,15 +69,14 @@ REM Option 2: Check if already compiled
 if exist "src\Main.class" (
     echo Already compiled, running from class files...
     echo =============================================
-    cd src
-    java Main
-    cd ..
+    java -cp src Main
     goto :end
 )
 
 REM Option 3: Compile and run
 echo Compiling source code...
 echo ========================
+
 cd src
 
 echo Compiling Java files...
@@ -107,6 +99,24 @@ java Main
 
 cd ..
 
+goto :end
+
+:showdir
+echo.
+echo Current directory contents:
+dir
+echo.
+echo Expected structure:
+echo   ProjectFolder\
+echo   ├── RUN_ME.bat
+echo   ├── src\
+echo   │   ├── Main.java
+echo   │   └── ... (other .java files)
+echo   └── exec\  (optional)
+echo.
+pause
+exit /b 1
+
 :end
 echo.
 echo ====================================
@@ -114,6 +124,6 @@ echo Program execution completed.
 echo.
 echo To run again, you can:
 echo 1. Double-click RUN_ME.bat again
-echo 2. Or navigate to project root and type: java -cp src Main
+echo 2. Or open Command Prompt and type: java -cp src Main
 echo.
 pause
