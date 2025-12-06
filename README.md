@@ -1,4 +1,5 @@
 # **CS 586 - Gas Pump MDA System - Final Project Submission**
+# https://github.com/fkpanni/CS586_Project
 
 ## **Quick Summary**
 **Project:** Gas Pump MDA System with Three Design Patterns  
@@ -42,6 +43,8 @@
     # 2. Terminal opens automatically
     # 3. Use Option 1 or Option 2 above
     # No installation needed - Java is pre-installed
+
+    # Can use (pre-tested): https://github.com/fkpanni/CS586_Project
 
 -----------------------------------------------------------------
 
