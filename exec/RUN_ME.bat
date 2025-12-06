@@ -42,7 +42,7 @@ if exist "GasPumpSystem.jar" (
     java -jar GasPumpSystem.jar
 ) else (
     echo JAR not found, running from source...
-    if exist "SourceCode\Main.class" (
+    if exist "src\Main.class" (
         cd SourceCode
         java Main
     ) else (
