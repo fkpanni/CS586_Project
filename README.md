@@ -1,6 +1,6 @@
 # **CS 586 - Gas Pump MDA System - Final Project Submission**
 
-## **📋 Quick Summary**
+## **Quick Summary**
 **Project:** Gas Pump MDA System with Three Design Patterns  
 **Course:** CS 586 - Software Design  
 **Semester:** Fall 2025  
@@ -42,7 +42,7 @@
     # 2. Terminal opens automatically
     # 3. Use Option 1 or Option 2 above
     # No installation needed - Java is pre-installed
-    
+
 -----------------------------------------------------------------
 
 ## **10 TEST CASES FROM SPECIFICATION**
