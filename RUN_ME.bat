@@ -57,6 +57,17 @@ echo Starting Gas Pump System...
 timeout /t 1 /nobreak >nul
 echo.
 
+REM Clean up old .class files to avoid version mismatch
+echo Cleaning old compiled files...
+if exist "src\*.class" (
+    del src\*.class /Q
+    echo ✓ Removed old .class files
+) else (
+    echo No old .class files found
+)
+
+echo.
+
 REM Option 1: Run from JAR if it exists
 if exist "exec\GasPumpSystem.jar" (
     echo Running from JAR file...
@@ -65,22 +76,15 @@ if exist "exec\GasPumpSystem.jar" (
     goto :end
 )
 
-REM Option 2: Check if already compiled
-if exist "src\Main.class" (
-    echo Already compiled, running from class files...
-    echo =============================================
-    java -cp src Main
-    goto :end
-)
-
-REM Option 3: Compile and run
+REM Option 2: Compile and run (we always compile fresh)
 echo Compiling source code...
 echo ========================
 
 cd src
 
-echo Compiling Java files...
-javac *.java
+echo Compiling Java files with Java 8 compatibility...
+REM Use -target and -source flags for Java 8 compatibility
+javac -target 1.8 -source 1.8 *.java
 
 if %errorlevel% neq 0 (
     echo.
