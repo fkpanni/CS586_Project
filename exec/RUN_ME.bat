@@ -13,53 +13,97 @@ echo.
 echo Checking system requirements...
 echo.
 
-REM Check Java
-where java >nul 2>&1
+REM Check if Java is installed
+java -version >nul 2>&1
 if %errorlevel% equ 0 (
     echo ✓ Java is installed
-    java -version 2>&1 | find "version"
+    for /f "tokens=3" %%g in ('java -version 2^>^&1 ^| findstr /i "version"') do (
+        echo   Java Version: %%g
+    )
 ) else (
     echo ✗ Java NOT found!
     echo.
     echo This program requires Java to run.
     echo.
-    echo OPTION 1: Install Java from:
+    echo Please install Java from:
     echo   https://www.oracle.com/java/technologies/javase-jre8-downloads.html
     echo.
-    echo OPTION 2: Run VIA Github Codespace 
+    echo After installing Java, restart your computer and try again.
     echo.
     pause
     exit /b 1
 )
 
 echo.
-echo Starting Gas Pump System...
-timeout /t 2 /nobreak >nul
-
-REM Run the JAR if it exists
-if exist "GasPumpSystem.jar" (
-    echo Running from JAR file...
-    java -jar GasPumpSystem.jar
-) else (
-    echo JAR not found, running from source...
-    if exist "src\Main.class" (
-        cd SourceCode
-        java Main
-    ) else (
-        echo Compiling source code...
-        cd SourceCode
-        javac *.java
-        if %errorlevel% equ 0 (
-            echo Compilation successful!
-            java Main
-        ) else (
-            echo Compilation failed!
-            pause
-        )
-    )
+echo Checking project structure...
+if not exist "src" (
+    echo ✗ Error: 'src' directory not found!
+    echo.
+    echo Current directory: %CD%
+    echo.
+    dir
+    echo.
+    pause
+    exit /b 1
 )
 
+echo ✓ Found 'src' directory with source code
 echo.
+
+echo Starting Gas Pump System...
+timeout /t 1 /nobreak >nul
+echo.
+
+REM Option 1: Run from JAR if it exists in exec folder
+if exist "exec\GasPumpSystem.jar" (
+    echo Running from JAR file...
+    echo ====================================
+    java -jar exec\GasPumpSystem.jar
+    goto :end
+)
+
+REM Option 2: Check if already compiled
+if exist "src\Main.class" (
+    echo Already compiled, running from class files...
+    echo =============================================
+    cd src
+    java Main
+    cd ..
+    goto :end
+)
+
+REM Option 3: Compile and run
+echo Compiling source code...
+echo ========================
+cd src
+
+echo Compiling Java files...
+javac *.java
+
+if %errorlevel% neq 0 (
+    echo.
+    echo ✗ Compilation failed!
+    echo Please check for errors in the Java files.
+    cd ..
+    pause
+    exit /b 1
+)
+
+echo ✓ Compilation successful!
+echo.
+echo Running Gas Pump MDA System...
+echo ==============================
+java Main
+
+cd ..
+
+:end
+echo.
+echo ====================================
 echo Program execution completed.
+echo.
+echo To run again, you can:
+echo 1. Double-click RUN_ME.bat again
+echo 2. Or type: java -cp src Main
 echo.
 pause
