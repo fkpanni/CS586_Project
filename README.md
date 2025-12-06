@@ -47,29 +47,33 @@
 
 ## **Project Structure**
 
+```text
 CS586_Project/
+├── README.md                     # This file
+├── run.sh                        # Execution script
 └── src/                          # ALL 18 SOURCE FILES
-    ├── Main.java                 # Driver program
-    ├── AbstractFactory.java      # Abstract Factory Pattern
-    ├── GP1Factory.java           # Factory for GasPump-1
-    ├── GP2Factory.java           # Factory for GasPump-2
+    ├── Main.java                 # Driver program with menu system
+    ├── AbstractFactory.java      # Abstract Factory Pattern interface
+    ├── GP1Factory.java           # Factory for GasPump-1 components
+    ├── GP2Factory.java           # Factory for GasPump-2 components
     ├── State.java                # State Pattern interface
-    ├── S0.java                   # State 0: Initial
+    ├── S0.java                   # State 0: Initial/Activate
     ├── S1.java                   # State 1: Start
-    ├── S2.java                   # State 2: Payment
+    ├── S2.java                   # State 2: Payment selection
     ├── S3.java                   # State 3: Credit approval
     ├── S4.java                   # State 4: Gas selection
     ├── S5.java                   # State 5: Pumping
     ├── S6.java                   # State 6: PIN verification
     ├── MDA_EFSM.java             # MDA-EFSM context
     ├── OP.java                   # Strategy Pattern interface
-    ├── OP1.java                  # Strategy for GasPump-1
-    ├── OP2.java                  # Strategy for GasPump-2
+    ├── OP1.java                  # Strategy for GasPump-1 output
+    ├── OP2.java                  # Strategy for GasPump-2 output
     ├── DataStore.java            # Abstract DataStore
     ├── DS1.java                  # DataStore for GasPump-1
     ├── DS2.java                  # DataStore for GasPump-2
     ├── GasPump_1.java            # Input Processor for GasPump-1
     └── GasPump_2.java            # Input Processor for GasPump-2
+```
 
 -----------------------------------------------------------------
 
