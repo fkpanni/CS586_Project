@@ -101,14 +101,6 @@ public class GasPump_2 {
 
     
 
-
-
-
-
-
-
-
-
     public void displayStatus() {
         DS2 ds = (DS2) d;
         if (ds == null) {

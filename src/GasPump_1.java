@@ -82,19 +82,6 @@ public class GasPump_1 {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
      public String getStatus() {
         DS1 ds = (DS1) d;
         StringBuilder status = new StringBuilder();

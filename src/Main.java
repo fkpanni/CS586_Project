@@ -49,7 +49,6 @@ public class Main {
         System.out.println("║           CS 586 - Software Design                   ║");
         System.out.println("║           Fall 2025 - Final Project                  ║");
         System.out.println("╚══════════════════════════════════════════════════════╝");
-        System.out.println("Now with ALL 10 test cases from project specification!");
         System.out.println("Design Patterns: State, Strategy, Abstract Factory");
         System.out.println("========================================================\n");
     }
